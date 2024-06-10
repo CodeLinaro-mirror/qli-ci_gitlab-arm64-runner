@@ -7,9 +7,9 @@ default:
     - arm64-runner
 
 variables:
-  KUBERNETES_CPU_REQUEST: 32
-  KUBERNETES_MEMORY_REQUEST: 128G
-  KUBERNETES_EPHEMERAL_STORAGE_REQUEST: 200G
+  KUBERNETES_CPU_REQUEST: 48
+  KUBERNETES_MEMORY_REQUEST: 256G
+  KUBERNETES_EPHEMERAL_STORAGE_REQUEST: 300G
 
 build:
   stage: build
@@ -37,6 +37,7 @@ build:
     - BRANCH="qcom-linux-kirkstone"
     - MANIFEST_FILE="${QCOM_RELEASE}.xml"
     - MACHINE="qcm6490"
+    - ARCH="arm"
     - DISTRO="qcom-wayland"
     - IMAGE="qcom-multimedia-image"
     - USER=lnxbuild
@@ -46,7 +47,7 @@ build:
 
     # Docker Build & Run
     - docker build --build-arg USER=${USER} --build-arg UID=${UID} --build-arg GID=${GID} --no-cache -t ${DOCKER_TAG} .
-    - docker run --name build ${DOCKER_TAG} -u ${URL} -b ${BRANCH} -m ${MANIFEST_FILE} -M ${MACHINE} -d ${DISTRO} -i ${IMAGE} -w "${WORK_DIR}/${DOCKER_TAG}"
+    - docker run --name build ${DOCKER_TAG} -u ${URL} -b ${BRANCH} -m ${MANIFEST_FILE} -M ${MACHINE} -d ${DISTRO} -i ${IMAGE} -w "${WORK_DIR}/${DOCKER_TAG}" -a ${ARCH}
     - mkdir -p /target/qcm6490/qcom-multimedia-image
     - mkdir -p /target/qcm6490/sdk
     - mkdir -p /target/qcm6490/qim_prod_sdk_artifacts

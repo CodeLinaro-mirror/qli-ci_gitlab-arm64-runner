@@ -51,9 +51,9 @@ build:
     - mkdir -p /target/qcm6490/qcom-robotics-full-image
     - mkdir -p /target/qcm6490/sdk
     - mkdir -p /target/qcm6490/qirpsdk_artifacts
-    - docker cp build:${WORK_DIR}/qcom-6.6.28-qli.1.1-ver.1.0_robotics-product-sdk-1.1_20.04/build-qcom-wayland/tmp-glibc/deploy/images/qcm6490/qcom-robotics-full-image/. /target/qcm6490/qcom-robotics-full-image/
-    - docker cp build:${WORK_DIR}/qcom-6.6.28-qli.1.1-ver.1.0_robotics-product-sdk-1.1_20.04/build-qcom-wayland/tmp-glibc/deploy/sdk/. /target/qcm6490/sdk/
-    - docker cp build:${WORK_DIR}/qcom-6.6.28-qli.1.1-ver.1.0_robotics-product-sdk-1.1_20.04/build-qcom-wayland/tmp-glibc/deploy/qirpsdk_artifacts/. /target/qcm6490/qirpsdk_artifacts/
+    - docker cp build:${WORK_DIR}/qcom-6.6.28-qli.1.1-ver.1.0_robotics-product-sdk-1.1_20.04/build-qcom-robotics-ros2-humble/tmp-glibc/deploy/images/qcm6490/qcom-robotics-full-image/. /target/qcm6490/qcom-robotics-full-image/
+    - docker cp build:${WORK_DIR}/qcom-6.6.28-qli.1.1-ver.1.0_robotics-product-sdk-1.1_20.04/build-qcom-robotics-ros2-humble/tmp-glibc/deploy/sdk/. /target/qcm6490/sdk/
+    - docker cp build:${WORK_DIR}/qcom-6.6.28-qli.1.1-ver.1.0_robotics-product-sdk-1.1_20.04/build-qcom-robotics-ros2-humble/tmp-glibc/deploy/qirpsdk_artifacts/. /target/qcm6490/qirpsdk_artifacts/
     - docker cp build:${WORK_DIR}/qcom-6.6.28-qli.1.1-ver.1.0_robotics-product-sdk-1.1_20.04/NOTICE /target/qcm6490/
     - docker cp build:${WORK_DIR}/qcom-6.6.28-qli.1.1-ver.1.0_robotics-product-sdk-1.1_20.04/NO.LOGIN.BINARY.LICENSE.QTI.pdf /target/qcm6490/
     - zip -r qcom-6.6.28-QLI.1.1-Ver.1.0_robotics-product-sdk-1.1.zip /target/qcm6490

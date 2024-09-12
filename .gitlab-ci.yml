@@ -59,4 +59,4 @@ build:
     - zip -r qcom-6.6.38-QLI.1.2-Ver.1.0_qim-product-sdk-1.1.1.zip /target/qcs6490-rb3gen2-core-kit
     - docker rm build
     - /usr/local/bin/jf rt ping
-    - /usr/local/bin/jf rt u --detailed-summary --flat=false --recursive qcom-6.6.38-QLI.1.2-Ver.1.0_qim-product-sdk-1.1.1.zip qli-ci/flashable-binaries/qirpsdk/qcs6490-rb3gen2-core-kit/arm/
+    - /usr/local/bin/jf rt u --detailed-summary --flat=false --recursive qcom-6.6.38-QLI.1.2-Ver.1.0_qim-product-sdk-1.1.1.zip qli-ci/flashable-binaries/qimpsdk/qcs6490-rb3gen2-core-kit/arm/

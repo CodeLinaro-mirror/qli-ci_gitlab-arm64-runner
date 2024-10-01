@@ -31,15 +31,15 @@ build:
 
   script:
     # Variables
-    - QCOM_RELEASE=qcom-6.6.38-QLI.1.2-Ver.1.1_robotics-product-sdk-1.1
-    - DOCKER_TAG="qcom-6.6.38-qli.1.2-ver.1.1_robotics-product-sdk-1.1_20.04"
+    - QCOM_RELEASE=qcom-6.6.38-QLI.1.2-Ver.1.1_qim-product-sdk-1.1.2
+    - DOCKER_TAG="qcom-6.6.38-qli.1.2-ver.1.1_qim-product-sdk-1.1.2_20.04"
     - URL="https://github.com/quic-yocto/qcom-manifest"
     - BRANCH="qcom-linux-kirkstone"
     - MANIFEST_FILE="${QCOM_RELEASE}.xml"
     - MACHINE="qcs6490-rb3gen2-vision-kit"
     - ARCH="arm"
-    - DISTRO="qcom-robotics-ros2-humble"
-    - IMAGE="qcom-robotics-full-image"
+    - DISTRO="qcom-wayland"
+    - IMAGE="qcom-multimedia-image"
     - USER=lnxbuild
     - UID=2366345
     - GID=2366345
@@ -48,15 +48,15 @@ build:
     # Docker Build & Run
     - docker build --build-arg USER=${USER} --build-arg UID=${UID} --build-arg GID=${GID} --no-cache -t ${DOCKER_TAG} .
     - docker run --name build ${DOCKER_TAG} -u ${URL} -b ${BRANCH} -m ${MANIFEST_FILE} -M ${MACHINE} -d ${DISTRO} -i ${IMAGE} -w "${WORK_DIR}/${DOCKER_TAG}" -a ${ARCH}
-    - mkdir -p /target/qcs6490-rb3gen2-vision-kit/qcom-robotics-full-image
+    - mkdir -p /target/qcs6490-rb3gen2-vision-kit/qcom-multimedia-image
     - mkdir -p /target/qcs6490-rb3gen2-vision-kit/sdk
-    - mkdir -p /target/qcs6490-rb3gen2-vision-kit/qirpsdk_artifacts
-    - docker cp build:${WORK_DIR}/qcom-6.6.38-qli.1.2-ver.1.1_robotics-product-sdk-1.1_20.04/build-qcom-robotics-ros2-humble/tmp-glibc/deploy/images/qcs6490-rb3gen2-vision-kit/qcom-robotics-full-image/. /target/qcs6490-rb3gen2-vision-kit/qcom-robotics-full-image/
-    - docker cp build:${WORK_DIR}/qcom-6.6.38-qli.1.2-ver.1.1_robotics-product-sdk-1.1_20.04/build-qcom-robotics-ros2-humble/tmp-glibc/deploy/sdk/. /target/qcs6490-rb3gen2-vision-kit/sdk/
-    - docker cp build:${WORK_DIR}/qcom-6.6.38-qli.1.2-ver.1.1_robotics-product-sdk-1.1_20.04/build-qcom-robotics-ros2-humble/tmp-glibc/deploy/qirpsdk_artifacts/. /target/qcs6490-rb3gen2-vision-kit/qirpsdk_artifacts/
-    - docker cp build:${WORK_DIR}/qcom-6.6.38-qli.1.2-ver.1.1_robotics-product-sdk-1.1_20.04/NOTICE /target/qcs6490-rb3gen2-vision-kit/
-    - docker cp build:${WORK_DIR}/qcom-6.6.38-qli.1.2-ver.1.1_robotics-product-sdk-1.1_20.04/NO.LOGIN.BINARY.LICENSE.QTI.pdf /target/qcs6490-rb3gen2-vision-kit/
-    - zip -r qcom-6.6.38-QLI.1.2-Ver.1.1_robotics-product-sdk-1.1.zip /target/qcs6490-rb3gen2-vision-kit
+    - mkdir -p /target/qcs6490-rb3gen2-vision-kit/qim_prod_sdk_artifacts
+    - docker cp build:${WORK_DIR}/qcom-6.6.38-qli.1.2-ver.1.1_qim-product-sdk-1.1.2_20.04/build-qcom-wayland/tmp-glibc/deploy/images/qcs6490-rb3gen2-vision-kit/qcom-multimedia-image/. /target/qcs6490-rb3gen2-vision-kit/qcom-multimedia-image/
+    - docker cp build:${WORK_DIR}/qcom-6.6.38-qli.1.2-ver.1.1_qim-product-sdk-1.1.2_20.04/build-qcom-wayland/tmp-glibc/deploy/sdk/. /target/qcs6490-rb3gen2-vision-kit/sdk/
+    - docker cp build:${WORK_DIR}/qcom-6.6.38-qli.1.2-ver.1.1_qim-product-sdk-1.1.2_20.04/build-qcom-wayland/tmp-glibc/deploy/qim_prod_sdk_artifacts/. /target/qcs6490-rb3gen2-vision-kit/qim_prod_sdk_artifacts/
+    - docker cp build:${WORK_DIR}/qcom-6.6.38-qli.1.2-ver.1.1_qim-product-sdk-1.1.2_20.04/NOTICE /target/qcs6490-rb3gen2-vision-kit/
+    - docker cp build:${WORK_DIR}/qcom-6.6.38-qli.1.2-ver.1.1_qim-product-sdk-1.1.2_20.04/NO.LOGIN.BINARY.LICENSE.QTI.pdf /target/qcs6490-rb3gen2-vision-kit/
+    - zip -r qcom-6.6.38-QLI.1.2-Ver.1.1_qim-product-sdk-1.1.2.zip /target/qcs6490-rb3gen2-vision-kit
     - docker rm build
     - /usr/local/bin/jf rt ping
-    - /usr/local/bin/jf rt u --detailed-summary --flat=false --recursive qcom-6.6.38-QLI.1.2-Ver.1.1_robotics-product-sdk-1.1.zip qli-ci/flashable-binaries/qirpsdk/qcs6490-rb3gen2-vision-kit/arm/
+    - /usr/local/bin/jf rt u --detailed-summary --flat=false --recursive qcom-6.6.38-QLI.1.2-Ver.1.1_qim-product-sdk-1.1.2.zip qli-ci/flashable-binaries/qimpsdk/qcs6490-rb3gen2-vision-kit/arm/

@@ -13,7 +13,6 @@ RUN \
         build-essential \
         chrpath \
         cpio \
-        pyyaml \
         curl \
         file \
         debianutils \
@@ -43,6 +42,7 @@ RUN \
         wget \
         xterm \
         xz-utils \
+        pyyaml \
         zstd \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \

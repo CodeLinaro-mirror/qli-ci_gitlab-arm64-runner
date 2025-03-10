@@ -34,6 +34,7 @@ RUN \
         python3-pexpect \
         python3-pip \
         python3-subunit \
+        python3-requests \
         socat \
         sudo \
         texinfo \

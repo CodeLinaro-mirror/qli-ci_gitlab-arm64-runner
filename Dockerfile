@@ -42,7 +42,7 @@ RUN \
         wget \
         xterm \
         xz-utils \
-        pyyaml \
+        python3-yaml \
         zstd \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \

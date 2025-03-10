@@ -13,6 +13,7 @@ RUN \
         build-essential \
         chrpath \
         cpio \
+        yaml \
         curl \
         file \
         debianutils \

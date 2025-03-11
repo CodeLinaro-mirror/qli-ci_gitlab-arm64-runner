@@ -44,6 +44,7 @@ RUN \
         xterm \
         xz-utils \
         python3-yaml \
+        libgtest-dev \
         zstd \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \

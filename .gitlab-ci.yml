@@ -57,7 +57,7 @@ build:
     - docker cp build:${WORK_DIR}/qcom-6.6.90-qli.1.5-ver.1.0_robotics-product-sdk-1.0_20.04/build-qcom-robotics-ros2-jazzy/tmp-glibc/deploy/qirpsdk_artifacts/. /target/qcs6490-rb3gen2-vision-kit/qirpsdk_artifacts/
     - docker cp build:${WORK_DIR}/qcom-6.6.90-qli.1.5-ver.1.0_robotics-product-sdk-1.0_20.04/NOTICE /target/qcs6490-rb3gen2-vision-kit/
     - docker cp build:${WORK_DIR}/qcom-6.6.90-qli.1.5-ver.1.0_robotics-product-sdk-1.0_20.04/NO.LOGIN.BINARY.LICENSE.QTI.pdf /target/qcs6490-rb3gen2-vision-kit/
-    - zip -r arm-qcom-6.6.90-QLI.1.5-Ver.1.0_robotics-product-sdk-1.0.zip /target/qcs6490-rb3gen2-vision-kit
+    #- zip -r arm-qcom-6.6.90-QLI.1.5-Ver.1.0_robotics-product-sdk-1.0.zip /target/qcs6490-rb3gen2-vision-kit
     - zip -r arm-qcom-6.6.90-QLI.1.5-Ver.1.0_robotics-product-sdk-image-1.0.zip /target/qcs6490-rb3gen2-vision-kit/qcom-robotics-full-image /target/qcs6490-rb3gen2-vision-kit/NOTICE /target/qcs6490-rb3gen2-vision-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
     - zip -r arm-qcom-6.6.90-QLI.1.5-Ver.1.0_robotics-product-sdk-artifacts-1.0.zip /target/qcs6490-rb3gen2-vision-kit/qirpsdk_artifacts /target/qcs6490-rb3gen2-vision-kit/NOTICE /target/qcs6490-rb3gen2-vision-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
     - zip -r arm-qcom-6.6.90-QLI.1.5-Ver.1.0_robotics-product-sdk-esdk-1.0.zip /target/qcs6490-rb3gen2-vision-kit /target/qcs6490-rb3gen2-vision-kit/sdk -i /target/qcs6490-rb3gen2-vision-kit/sdk/*-toolchain-ext-*.sh -i /target/qcs6490-rb3gen2-vision-kit/NOTICE -i /target/qcs6490-rb3gen2-vision-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf

@@ -37,7 +37,7 @@ build:
     - URL="https://github.com/qualcomm-linux/qcom-manifest"
     - BRANCH="qcom-linux-scarthgap"
     - MANIFEST_FILE="${QCOM_RELEASE}.xml"
-    - MACHINE="qcs8275-iq-8275-evk-pro-sku"
+    - MACHINE="qcs6490-rb3gen2-core-kit"
     - ARCH="arm"
     - DISTRO="qcom-wayland"
     - IMAGE="qcom-multimedia-image"
@@ -49,19 +49,19 @@ build:
     # Docker Build & Run
     - docker build --build-arg USER=${USER} --build-arg UID=${UID} --build-arg GID=${GID} --no-cache -t ${DOCKER_TAG} .
     - docker run --name build ${DOCKER_TAG} -u ${URL} -b ${BRANCH} -m ${MANIFEST_FILE} -M ${MACHINE} -d ${DISTRO} -i ${IMAGE} -w "${WORK_DIR}/${DOCKER_TAG}" -a ${ARCH}
-    - mkdir -p /target/qcs8275-iq-8275-evk-pro-sku/qcom-multimedia-image
-    - mkdir -p /target/qcs8275-iq-8275-evk-pro-sku/sdk
-    - mkdir -p /target/qcs8275-iq-8275-evk-pro-sku/qim_prod_sdk_artifacts
-    - docker cp build:${WORK_DIR}/qcom-6.6.97-qli.1.6-ver.1.2.1_qim-product-sdk-2.1.1_20.04/build-qcom-wayland/tmp-glibc/deploy/images/qcs8275-iq-8275-evk-pro-sku/qcom-multimedia-image/. /target/qcs8275-iq-8275-evk-pro-sku/qcom-multimedia-image/
-    - docker cp build:${WORK_DIR}/qcom-6.6.97-qli.1.6-ver.1.2.1_qim-product-sdk-2.1.1_20.04/build-qcom-wayland/tmp-glibc/deploy/sdk/. /target/qcs8275-iq-8275-evk-pro-sku/sdk/
-    - docker cp build:${WORK_DIR}/qcom-6.6.97-qli.1.6-ver.1.2.1_qim-product-sdk-2.1.1_20.04/build-qcom-wayland/tmp-glibc/deploy/qim_prod_sdk_artifacts/. /target/qcs8275-iq-8275-evk-pro-sku/qim_prod_sdk_artifacts/
-    - docker cp build:${WORK_DIR}/qcom-6.6.97-qli.1.6-ver.1.2.1_qim-product-sdk-2.1.1_20.04/NOTICE /target/qcs8275-iq-8275-evk-pro-sku/
-    - docker cp build:${WORK_DIR}/qcom-6.6.97-qli.1.6-ver.1.2.1_qim-product-sdk-2.1.1_20.04/NO.LOGIN.BINARY.LICENSE.QTI.pdf /target/qcs8275-iq-8275-evk-pro-sku/
-    # - zip -r arm-qcom-6.6.97-qli.1.6-ver.1.2.1_qim-product-sdk-2.1.1.zip /target/qcs8275-iq-8275-evk-pro-sku
-    - zip -r arm-qcom-6.6.97-QLI.1.6-Ver.1.2.1_qim-product-sdk-image-2.1.1.zip /target/qcs8275-iq-8275-evk-pro-sku/qcom-multimedia-image /target/qcs8275-iq-8275-evk-pro-sku/NOTICE /target/qcs8275-iq-8275-evk-pro-sku/NO.LOGIN.BINARY.LICENSE.QTI.pdf
-    - zip -r arm-qcom-6.6.97-QLI.1.6-Ver.1.2.1_qim-product-sdk-artifacts-2.1.1.zip /target/qcs8275-iq-8275-evk-pro-sku/qim_prod_sdk_artifacts /target/qcs8275-iq-8275-evk-pro-sku/NOTICE /target/qcs8275-iq-8275-evk-pro-sku/NO.LOGIN.BINARY.LICENSE.QTI.pdf
-    - zip -r arm-qcom-6.6.97-QLI.1.6-Ver.1.2.1_qim-product-sdk-esdk-2.1.1.zip /target/qcs8275-iq-8275-evk-pro-sku /target/qcs8275-iq-8275-evk-pro-sku/sdk -i /target/qcs8275-iq-8275-evk-pro-sku/sdk/*-toolchain-ext-*.sh -i /target/qcs8275-iq-8275-evk-pro-sku/NOTICE -i /target/qcs8275-iq-8275-evk-pro-sku/NO.LOGIN.BINARY.LICENSE.QTI.pdf
-    - zip -r arm-qcom-6.6.97-QLI.1.6-Ver.1.2.1_qim-product-sdk-standardsdk-2.1.1.zip /target/qcs8275-iq-8275-evk-pro-sku /target/qcs8275-iq-8275-evk-pro-sku/sdk -i /target/qcs8275-iq-8275-evk-pro-sku/sdk/*-toolchain-*.sh -x /target/qcs8275-iq-8275-evk-pro-sku/sdk/*-toolchain-ext-*.sh -i /target/qcs8275-iq-8275-evk-pro-sku/NOTICE -i /target/qcs8275-iq-8275-evk-pro-sku/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - mkdir -p /target/qcs6490-rb3gen2-core-kit/qcom-multimedia-image
+    - mkdir -p /target/qcs6490-rb3gen2-core-kit/sdk
+    - mkdir -p /target/qcs6490-rb3gen2-core-kit/qim_prod_sdk_artifacts
+    - docker cp build:${WORK_DIR}/qcom-6.6.97-qli.1.6-ver.1.2.1_qim-product-sdk-2.1.1_20.04/build-qcom-wayland/tmp-glibc/deploy/images/qcs6490-rb3gen2-core-kit/qcom-multimedia-image/. /target/qcs6490-rb3gen2-core-kit/qcom-multimedia-image/
+    - docker cp build:${WORK_DIR}/qcom-6.6.97-qli.1.6-ver.1.2.1_qim-product-sdk-2.1.1_20.04/build-qcom-wayland/tmp-glibc/deploy/sdk/. /target/qcs6490-rb3gen2-core-kit/sdk/
+    - docker cp build:${WORK_DIR}/qcom-6.6.97-qli.1.6-ver.1.2.1_qim-product-sdk-2.1.1_20.04/build-qcom-wayland/tmp-glibc/deploy/qim_prod_sdk_artifacts/. /target/qcs6490-rb3gen2-core-kit/qim_prod_sdk_artifacts/
+    - docker cp build:${WORK_DIR}/qcom-6.6.97-qli.1.6-ver.1.2.1_qim-product-sdk-2.1.1_20.04/NOTICE /target/qcs6490-rb3gen2-core-kit/
+    - docker cp build:${WORK_DIR}/qcom-6.6.97-qli.1.6-ver.1.2.1_qim-product-sdk-2.1.1_20.04/NO.LOGIN.BINARY.LICENSE.QTI.pdf /target/qcs6490-rb3gen2-core-kit/
+    # - zip -r arm-qcom-6.6.97-QLI.1.6-Ver.1.2.1_qim-product-sdk-2.1.1.zip /target/qcs6490-rb3gen2-core-kit
+    - zip -r arm-qcom-6.6.97-QLI.1.6-Ver.1.2.1_qim-product-sdk-image-2.1.1.zip /target/qcs6490-rb3gen2-core-kit/qcom-multimedia-image /target/qcs6490-rb3gen2-core-kit/NOTICE /target/qcs6490-rb3gen2-core-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r arm-qcom-6.6.97-QLI.1.6-Ver.1.2.1_qim-product-sdk-artifacts-2.1.1.zip /target/qcs6490-rb3gen2-core-kit/qim_prod_sdk_artifacts /target/qcs6490-rb3gen2-core-kit/NOTICE /target/qcs6490-rb3gen2-core-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r arm-qcom-6.6.97-QLI.1.6-Ver.1.2.1_qim-product-sdk-esdk-2.1.1.zip /target/qcs6490-rb3gen2-core-kit /target/qcs6490-rb3gen2-core-kit/sdk -i /target/qcs6490-rb3gen2-core-kit/sdk/*-toolchain-ext-*.sh -i /target/qcs6490-rb3gen2-core-kit/NOTICE -i /target/qcs6490-rb3gen2-core-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r arm-qcom-6.6.97-QLI.1.6-Ver.1.2.1_qim-product-sdk-standardsdk-2.1.1.zip /target/qcs6490-rb3gen2-core-kit /target/qcs6490-rb3gen2-core-kit/sdk -i /target/qcs6490-rb3gen2-core-kit/sdk/*-toolchain-*.sh -x /target/qcs6490-rb3gen2-core-kit/sdk/*-toolchain-ext-*.sh -i /target/qcs6490-rb3gen2-core-kit/NOTICE -i /target/qcs6490-rb3gen2-core-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
     - docker rm build
     - /usr/local/bin/jf rt ping
-    - /usr/local/bin/jf rt u --detailed-summary --flat=false --recursive "arm-qcom-6.6.97-QLI.1.6-Ver.1.2.1_qim-product-sdk-*-2.1.1.zip" qli-ci/flashable-binaries/qimpsdk/qcs8275-iq-8275-evk-pro-sku/
+    - /usr/local/bin/jf rt u --detailed-summary --flat=false --recursive "arm-qcom-6.6.97-QLI.1.6-Ver.1.2.1_qim-product-sdk*-2.1.1.zip" qli-ci/flashable-binaries/qimpsdk/qcs6490-rb3gen2-core-kit/

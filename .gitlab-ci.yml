@@ -59,8 +59,8 @@ build:
     - docker cp build:${WORK_DIR}/qcom-6.6.97-qli.1.6-ver.1.2.1_robotics-sdk-1.2_20.04/NO.LOGIN.BINARY.LICENSE.QTI.pdf /target/qcs9075-iq-9075-evk/
     # - zip -r arm-qcom-6.6.97-qli.1.6-ver.1.2.1_robotics-sdk-1.2.zip /target/qcs9075-iq-9075-evk
     - zip -r arm-qcom-6.6.97-QLI.1.6-Ver.1.2.1_robotics-sdk-image-1.2.zip /target/qcs9075-iq-9075-evk/qcom-robotics-full-image /target/qcs9075-iq-9075-evk/NOTICE /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
-	- zip -r arm-qcom-6.6.97-QLI.1.6-Ver.1.2.1_robotics-sdk-artifacts-1.2.zip /target/qcs9075-iq-9075-evk/qirpsdk_artifacts /target/qcs9075-iq-9075-evk/NOTICE /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
-	- zip -r arm-qcom-6.6.97-QLI.1.6-Ver.1.2.1_robotics-sdk-esdk-1.2.zip /target/qcs9075-iq-9075-evk /target/qcs9075-iq-9075-evk/sdk -i /target/qcs9075-iq-9075-evk/sdk/*-toolchain-ext-*.sh -i /target/qcs9075-iq-9075-evk/NOTICE -i /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r arm-qcom-6.6.97-QLI.1.6-Ver.1.2.1_robotics-sdk-artifacts-1.2.zip /target/qcs9075-iq-9075-evk/qirpsdk_artifacts /target/qcs9075-iq-9075-evk/NOTICE /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r arm-qcom-6.6.97-QLI.1.6-Ver.1.2.1_robotics-sdk-esdk-1.2.zip /target/qcs9075-iq-9075-evk /target/qcs9075-iq-9075-evk/sdk -i /target/qcs9075-iq-9075-evk/sdk/*-toolchain-ext-*.sh -i /target/qcs9075-iq-9075-evk/NOTICE -i /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
     - zip -r arm-qcom-6.6.97-QLI.1.6-Ver.1.2.1_robotics-sdk-standardsdk-1.2.zip /target/qcs9075-iq-9075-evk /target/qcs9075-iq-9075-evk/sdk -i /target/qcs9075-iq-9075-evk/sdk/*-toolchain-*.sh -x /target/qcs9075-iq-9075-evk/sdk/*-toolchain-ext-*.sh -i /target/qcs9075-iq-9075-evk/NOTICE -i /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
     - docker rm build
     - /usr/local/bin/jf rt ping

@@ -4,7 +4,7 @@ default:
     - dockerd -l fatal &
     - sleep 5
   tags:
-    - amd64-runner
+    - arm64-runner
 
 variables:
   KUBERNETES_CPU_REQUEST: 60
@@ -32,15 +32,15 @@ build:
 
   script:
     # Variables
-    - QCOM_RELEASE=qcom-6.6.116-QLI.1.7-Ver.1.0_qim-product-sdk-2.2.0
-    - DOCKER_TAG="qcom-6.6.116-qli.1.7-ver.1.0_qim-product-sdk-comb-zip-2.2.0_20.04"
+    - QCOM_RELEASE=qcom-6.6.116-QLI.1.7-Ver.1.0_robotics-sdk-1.0
+    - DOCKER_TAG="qcom-6.6.116-qli.1.7-ver.1.0_robotics-sdk-1.0_20.04"
     - URL="https://github.com/qualcomm-linux/qcom-manifest"
     - BRANCH="qcom-linux-scarthgap"
     - MANIFEST_FILE="${QCOM_RELEASE}.xml"
-    - MACHINE="qcs8275-iq-8275-evk-pro-sku"
-    - ARCH="x86"
-    - DISTRO="qcom-wayland"
-    - IMAGE="qcom-multimedia-image"
+    - MACHINE="qcs9075-iq-9075-evk"
+    - ARCH="arm"
+    - DISTRO="qcom-robotics-ros2-jazzy"
+    - IMAGE="qcom-robotics-full-image"
     - USER=lnxbuild
     - UID=2366345
     - GID=2366345
@@ -48,20 +48,20 @@ build:
 
     # Docker Build & Run
     - docker build --build-arg USER=${USER} --build-arg UID=${UID} --build-arg GID=${GID} --no-cache -t ${DOCKER_TAG} .
-    - wget https://artifacts.codelinaro.org/artifactory/qli-ci/flashable-binaries/qimpsdk/qcs8275-iq-8275-evk-pro-sku/x86-qcom-6.6.116-QLI.1.7-Ver.1.0_qim-product-sdk-image-2.2.0.zip
-    - unzip x86-qcom-6.6.116-QLI.1.7-Ver.1.0_qim-product-sdk-image-2.2.0.zip
-    - rm -rf x86-qcom-6.6.116-QLI.1.7-Ver.1.0_qim-product-sdk-image-2.2.0.zip
-    - wget https://artifacts.codelinaro.org/artifactory/qli-ci/flashable-binaries/qimpsdk/qcs8275-iq-8275-evk-pro-sku/x86-qcom-6.6.116-QLI.1.7-Ver.1.0_qim-product-sdk-artifacts-2.2.0.zip
-    - unzip -o x86-qcom-6.6.116-QLI.1.7-Ver.1.0_qim-product-sdk-artifacts-2.2.0.zip
-    - rm -rf x86-qcom-6.6.116-QLI.1.7-Ver.1.0_qim-product-sdk-artifacts-2.2.0.zip
-    - wget https://artifacts.codelinaro.org/artifactory/qli-ci/flashable-binaries/qimpsdk/qcs8275-iq-8275-evk-pro-sku/x86-qcom-6.6.116-QLI.1.7-Ver.1.0_qim-product-sdk-esdk-2.2.0.zip
-    - unzip -o x86-qcom-6.6.116-QLI.1.7-Ver.1.0_qim-product-sdk-esdk-2.2.0.zip
-    - rm -rf x86-qcom-6.6.116-QLI.1.7-Ver.1.0_qim-product-sdk-esdk-2.2.0.zip
-    - wget https://artifacts.codelinaro.org/artifactory/qli-ci/flashable-binaries/qimpsdk/qcs8275-iq-8275-evk-pro-sku/x86-qcom-6.6.116-QLI.1.7-Ver.1.0_qim-product-sdk-standardsdk-2.2.0.zip
-    - unzip -o x86-qcom-6.6.116-QLI.1.7-Ver.1.0_qim-product-sdk-standardsdk-2.2.0.zip
-    - rm -rf x86-qcom-6.6.116-QLI.1.7-Ver.1.0_qim-product-sdk-standardsdk-2.2.0.zip
-    - tree target
-    #- docker rm build
-    - zip -r x86-qcom-6.6.116-QLI.1.7-Ver.1.0_qim-product-sdk-2.2.0.zip target/qcs8275-iq-8275-evk-pro-sku
+    - docker run --name build ${DOCKER_TAG} -u ${URL} -b ${BRANCH} -m ${MANIFEST_FILE} -M ${MACHINE} -d ${DISTRO} -i ${IMAGE} -w "${WORK_DIR}/${DOCKER_TAG}" -a ${ARCH}
+    - mkdir -p /target/qcs9075-iq-9075-evk/qcom-robotics-full-image
+    - mkdir -p /target/qcs9075-iq-9075-evk/sdk
+    - mkdir -p /target/qcs9075-iq-9075-evk/qirpsdk_artifacts
+    - docker cp build:${WORK_DIR}/qcom-6.6.116-qli.1.7-ver.1.0_robotics-sdk-1.0_20.04/build-qcom-robotics-ros2-jazzy/tmp-glibc/deploy/images/qcs9075-iq-9075-evk/qcom-robotics-full-image/. /target/qcs9075-iq-9075-evk/qcom-robotics-full-image/
+    - docker cp build:${WORK_DIR}/qcom-6.6.116-qli.1.7-ver.1.0_robotics-sdk-1.0_20.04/build-qcom-robotics-ros2-jazzy/tmp-glibc/deploy/sdk/. /target/qcs9075-iq-9075-evk/sdk/
+    - docker cp build:${WORK_DIR}/qcom-6.6.116-qli.1.7-ver.1.0_robotics-sdk-1.0_20.04/build-qcom-robotics-ros2-jazzy/tmp-glibc/deploy/qirpsdk_artifacts/. /target/qcs9075-iq-9075-evk/qirpsdk_artifacts/
+    - docker cp build:${WORK_DIR}/qcom-6.6.116-qli.1.7-ver.1.0_robotics-sdk-1.0_20.04/NOTICE /target/qcs9075-iq-9075-evk/
+    - docker cp build:${WORK_DIR}/qcom-6.6.116-qli.1.7-ver.1.0_robotics-sdk-1.0_20.04/NO.LOGIN.BINARY.LICENSE.QTI.pdf /target/qcs9075-iq-9075-evk/
+    # - zip -r arm-qcom-6.6.116-qli.1.7-ver.1.0_robotics-sdk-1.0.zip /target/qcs9075-iq-9075-evk
+    - zip -r arm-qcom-6.6.116-QLI.1.7-Ver.1.0_robotics-sdk-image-1.0.zip /target/qcs9075-iq-9075-evk/qcom-robotics-full-image /target/qcs9075-iq-9075-evk/NOTICE /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r arm-qcom-6.6.116-QLI.1.7-Ver.1.0_robotics-sdk-artifacts-1.0.zip /target/qcs9075-iq-9075-evk/qirpsdk_artifacts /target/qcs9075-iq-9075-evk/NOTICE /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r arm-qcom-6.6.116-QLI.1.7-Ver.1.0_robotics-sdk-esdk-1.0.zip /target/qcs9075-iq-9075-evk /target/qcs9075-iq-9075-evk/sdk -i /target/qcs9075-iq-9075-evk/sdk/*-toolchain-ext-*.sh -i /target/qcs9075-iq-9075-evk/NOTICE -i /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r arm-qcom-6.6.116-QLI.1.7-Ver.1.0_robotics-sdk-standardsdk-1.0.zip /target/qcs9075-iq-9075-evk /target/qcs9075-iq-9075-evk/sdk -i /target/qcs9075-iq-9075-evk/sdk/*-toolchain-*.sh -x /target/qcs9075-iq-9075-evk/sdk/*-toolchain-ext-*.sh -i /target/qcs9075-iq-9075-evk/NOTICE -i /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - docker rm build
     - /usr/local/bin/jf rt ping
-    - /usr/local/bin/jf rt u --detailed-summary --flat=false --recursive x86-qcom-6.6.116-QLI.1.7-Ver.1.0_qim-product-sdk-2.2.0.zip qli-ci/flashable-binaries/qimpsdk/qcs8275-iq-8275-evk-pro-sku/
+    - /usr/local/bin/jf rt u --detailed-summary --flat=false --recursive "arm-qcom-6.6.116-QLI.1.7-Ver.1.0_robotics-sdk*-1.0.zip" qli-ci/flashable-binaries/qirpsdk/qcs9075-iq-9075-evk/

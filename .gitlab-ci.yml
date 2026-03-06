@@ -4,7 +4,7 @@ default:
     - dockerd -l fatal &
     - sleep 5
   tags:
-    - arm64-runner
+    - amd64-runner
 
 variables:
   KUBERNETES_CPU_REQUEST: 60
@@ -32,12 +32,12 @@ build:
 
   script:
     # Variables
-    - QCOM_RELEASE=qcom-6.6.116-QLI.1.7-Ver.1.1_robotics-sdk-1.1
-    - DOCKER_TAG="qcom-6.6.116-qli.1.7-ver.1.1_robotics-sdk-ci-1.1_20.04"
+    - QCOM_RELEASE=qcom-6.6.119-QLI.1.8-Ver.1.0
+    - DOCKER_TAG="qcom-6.6.119-qli.1.8-ver.1.0_20.04"
     - URL="https://github.com/qualcomm-linux/qcom-manifest"
     - BRANCH="qcom-linux-scarthgap"
     - MANIFEST_FILE="${QCOM_RELEASE}.xml"
-    - MACHINE="qcs9075-iq-9075-evk"
+    - MACHINE="qcs615-adp-air"
     - ARCH="x86"
     - DISTRO="qcom-wayland"
     - IMAGE="qcom-multimedia-image"
@@ -48,20 +48,16 @@ build:
 
     # Docker Build & Run
     - docker build --build-arg USER=${USER} --build-arg UID=${UID} --build-arg GID=${GID} --no-cache -t ${DOCKER_TAG} .
-    - wget https://artifacts.codelinaro.org/artifactory/qli-ci/flashable-binaries/qirpsdk/qcs9075-iq-9075-evk/x86-qcom-6.6.116-QLI.1.7-Ver.1.1_robotics-sdk-image-1.1.zip
-    - unzip x86-qcom-6.6.116-QLI.1.7-Ver.1.1_robotics-sdk-image-1.1.zip
-    - rm -rf x86-qcom-6.6.116-QLI.1.7-Ver.1.1_robotics-sdk-image-1.1.zip
-    - wget https://artifacts.codelinaro.org/artifactory/qli-ci/flashable-binaries/qirpsdk/qcs9075-iq-9075-evk/x86-qcom-6.6.116-QLI.1.7-Ver.1.1_robotics-sdk-artifacts-1.1.zip
-    - unzip -o x86-qcom-6.6.116-QLI.1.7-Ver.1.1_robotics-sdk-artifacts-1.1.zip
-    - rm -rf x86-qcom-6.6.116-QLI.1.7-Ver.1.1_robotics-sdk-artifacts-1.1.zip
-    - wget https://artifacts.codelinaro.org/artifactory/qli-ci/flashable-binaries/qirpsdk/qcs9075-iq-9075-evk/x86-qcom-6.6.116-QLI.1.7-Ver.1.1_robotics-sdk-esdk-1.1.zip
-    - unzip -o x86-qcom-6.6.116-QLI.1.7-Ver.1.1_robotics-sdk-esdk-1.1.zip
-    - rm -rf x86-qcom-6.6.116-QLI.1.7-Ver.1.1_robotics-sdk-esdk-1.1.zip
-    - wget https://artifacts.codelinaro.org/artifactory/qli-ci/flashable-binaries/qirpsdk/qcs9075-iq-9075-evk/x86-qcom-6.6.116-QLI.1.7-Ver.1.1_robotics-sdk-standardsdk-1.1.zip
-    - unzip -o x86-qcom-6.6.116-QLI.1.7-Ver.1.1_robotics-sdk-standardsdk-1.1.zip
-    - rm -rf x86-qcom-6.6.116-QLI.1.7-Ver.1.1_robotics-sdk-standardsdk-1.1.zip
-    - tree target
-    #- docker rm build
-    - zip -r x86-qcom-6.6.116-QLI.1.7-Ver.1.1_robotics-sdk-1.1.zip target/qcs9075-iq-9075-evk
+    - docker run --name build ${DOCKER_TAG} -u ${URL} -b ${BRANCH} -m ${MANIFEST_FILE} -M ${MACHINE} -d ${DISTRO} -i ${IMAGE} -w "${WORK_DIR}/${DOCKER_TAG}" -a ${ARCH}
+    - mkdir -p /target/qcs615-adp-air/qcom-multimedia-image
+    - mkdir -p /target/qcs615-adp-air/sdk
+    - docker cp build:${WORK_DIR}/qcom-6.6.119-qli.1.8-ver.1.0_20.04/build-qcom-wayland/tmp-glibc/deploy/images/qcs615-adp-air/qcom-multimedia-image/. /target/qcs615-adp-air/qcom-multimedia-image/
+    - docker cp build:${WORK_DIR}/qcom-6.6.119-qli.1.8-ver.1.0_20.04/build-qcom-wayland/tmp-glibc/deploy/sdk/. /target/qcs615-adp-air/sdk/
+    - docker cp build:${WORK_DIR}/qcom-6.6.119-qli.1.8-ver.1.0_20.04/NOTICE /target/qcs615-adp-air/
+    - docker cp build:${WORK_DIR}/qcom-6.6.119-qli.1.8-ver.1.0_20.04/NO.LOGIN.BINARY.LICENSE.QTI.pdf /target/qcs615-adp-air/
+    - zip -r x86-qcom-6.6.119-QLI.1.8-Ver.1.0-image.zip /target/qcs615-adp-air/qcom-multimedia-image /target/qcs615-adp-air/NOTICE /target/qcs615-adp-air/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r x86-qcom-6.6.119-QLI.1.8-Ver.1.0-esdk.zip /target/qcs615-adp-air /target/qcs615-adp-air/sdk -i /target/qcs615-adp-air/sdk/*-toolchain-ext-*.sh -i /target/qcs615-adp-air/NOTICE -i /target/qcs615-adp-air/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r x86-qcom-6.6.119-QLI.1.8-Ver.1.0-standardsdk.zip /target/qcs615-adp-air /target/qcs615-adp-air/sdk -i /target/qcs615-adp-air/sdk/*-toolchain-*.sh -x /target/qcs615-adp-air/sdk/*-toolchain-ext-*.sh -i /target/qcs615-adp-air/NOTICE -i /target/qcs615-adp-air/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - docker rm build
     - /usr/local/bin/jf rt ping
-    - /usr/local/bin/jf rt u --detailed-summary --flat=false --recursive x86-qcom-6.6.116-QLI.1.7-Ver.1.1_robotics-sdk-1.1.zip qli-ci/flashable-binaries/qirpsdk/qcs9075-iq-9075-evk/
+    - /usr/local/bin/jf rt u --detailed-summary --flat=false --recursive "x86-qcom-6.6.119-QLI.1.8-Ver.1.0*.zip" qli-ci/flashable-binaries/hwe/qcs615-adp-air/

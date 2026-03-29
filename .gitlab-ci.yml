@@ -4,7 +4,7 @@ default:
     - dockerd -l fatal &
     - sleep 5
   tags:
-    - amd64-runner
+    - arm64-runner
 
 variables:
   KUBERNETES_CPU_REQUEST: 60
@@ -33,12 +33,12 @@ build:
   script:
     # Variables
     - QCOM_RELEASE=qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-1.1
-    - DOCKER_TAG="qcom-6.6.119-qli.1.8-ver.1.1_robotics-sdk-1.1_20.04"
+    - DOCKER_TAG="qcom-6.6.119-qli.1.8-ver.1.1_robotics-sdk-1.1_c1_20.04"
     - URL="https://github.com/qualcomm-linux/qcom-manifest"
     - BRANCH="qcom-linux-scarthgap"
     - MANIFEST_FILE="${QCOM_RELEASE}.xml"
-    - MACHINE="qcs6490-rb3gen2-vision-kit"
-    - ARCH="x86"
+    - MACHINE="qcs9075-iq-9075-evk"
+    - ARCH="arm"
     - DISTRO="qcom-robotics-ros2-jazzy"
     - IMAGE="qcom-robotics-full-image"
     - USER=lnxbuild
@@ -49,19 +49,19 @@ build:
     # Docker Build & Run
     - docker build --build-arg USER=${USER} --build-arg UID=${UID} --build-arg GID=${GID} --no-cache -t ${DOCKER_TAG} .
     - docker run --name build ${DOCKER_TAG} -u ${URL} -b ${BRANCH} -m ${MANIFEST_FILE} -M ${MACHINE} -d ${DISTRO} -i ${IMAGE} -w "${WORK_DIR}/${DOCKER_TAG}" -a ${ARCH}
-    - mkdir -p /target/qcs6490-rb3gen2-vision-kit/qcom-robotics-full-image
-    - mkdir -p /target/qcs6490-rb3gen2-vision-kit/sdk
-    - mkdir -p /target/qcs6490-rb3gen2-vision-kit/qirpsdk_artifacts
-    - docker cp build:${WORK_DIR}/qcom-6.6.119-qli.1.8-ver.1.1_robotics-sdk-1.1_20.04/build-qcom-robotics-ros2-jazzy/tmp-glibc/deploy/images/qcs6490-rb3gen2-vision-kit/qcom-robotics-full-image/. /target/qcs6490-rb3gen2-vision-kit/qcom-robotics-full-image/
-    - docker cp build:${WORK_DIR}/qcom-6.6.119-qli.1.8-ver.1.1_robotics-sdk-1.1_20.04/build-qcom-robotics-ros2-jazzy/tmp-glibc/deploy/sdk/. /target/qcs6490-rb3gen2-vision-kit/sdk/
-    - docker cp build:${WORK_DIR}/qcom-6.6.119-qli.1.8-ver.1.1_robotics-sdk-1.1_20.04/build-qcom-robotics-ros2-jazzy/tmp-glibc/deploy/qirpsdk_artifacts/. /target/qcs6490-rb3gen2-vision-kit/qirpsdk_artifacts/
-    - docker cp build:${WORK_DIR}/qcom-6.6.119-qli.1.8-ver.1.1_robotics-sdk-1.1_20.04/NOTICE /target/qcs6490-rb3gen2-vision-kit/
-    - docker cp build:${WORK_DIR}/qcom-6.6.119-qli.1.8-ver.1.1_robotics-sdk-1.1_20.04/NO.LOGIN.BINARY.LICENSE.QTI.pdf /target/qcs6490-rb3gen2-vision-kit/
-    # - zip -r x86-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-1.1.zip /target/qcs6490-rb3gen2-vision-kit
-    - zip -r x86-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-image-1.1.zip /target/qcs6490-rb3gen2-vision-kit/qcom-robotics-full-image /target/qcs6490-rb3gen2-vision-kit/NOTICE /target/qcs6490-rb3gen2-vision-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
-    - zip -r x86-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-artifacts-1.1.zip /target/qcs6490-rb3gen2-vision-kit/qirpsdk_artifacts /target/qcs6490-rb3gen2-vision-kit/NOTICE /target/qcs6490-rb3gen2-vision-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
-    - zip -r x86-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-esdk-1.1.zip /target/qcs6490-rb3gen2-vision-kit /target/qcs6490-rb3gen2-vision-kit/sdk -i /target/qcs6490-rb3gen2-vision-kit/sdk/*-toolchain-ext-*.sh -i /target/qcs6490-rb3gen2-vision-kit/NOTICE -i /target/qcs6490-rb3gen2-vision-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
-    - zip -r x86-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-standardsdk-1.1.zip /target/qcs6490-rb3gen2-vision-kit /target/qcs6490-rb3gen2-vision-kit/sdk -i /target/qcs6490-rb3gen2-vision-kit/sdk/*-toolchain-*.sh -x /target/qcs6490-rb3gen2-vision-kit/sdk/*-toolchain-ext-*.sh -i /target/qcs6490-rb3gen2-vision-kit/NOTICE -i /target/qcs6490-rb3gen2-vision-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - mkdir -p /target/qcs9075-iq-9075-evk/qcom-robotics-full-image
+    - mkdir -p /target/qcs9075-iq-9075-evk/sdk
+    - mkdir -p /target/qcs9075-iq-9075-evk/qirpsdk_artifacts
+    - docker cp build:${WORK_DIR}/qcom-6.6.119-qli.1.8-ver.1.1_robotics-sdk-1.1_c1_20.04/build-qcom-robotics-ros2-jazzy/tmp-glibc/deploy/images/qcs9075-iq-9075-evk/qcom-robotics-full-image/. /target/qcs9075-iq-9075-evk/qcom-robotics-full-image/
+    - docker cp build:${WORK_DIR}/qcom-6.6.119-qli.1.8-ver.1.1_robotics-sdk-1.1_c1_20.04/build-qcom-robotics-ros2-jazzy/tmp-glibc/deploy/sdk/. /target/qcs9075-iq-9075-evk/sdk/
+    - docker cp build:${WORK_DIR}/qcom-6.6.119-qli.1.8-ver.1.1_robotics-sdk-1.1_c1_20.04/build-qcom-robotics-ros2-jazzy/tmp-glibc/deploy/qirpsdk_artifacts/. /target/qcs9075-iq-9075-evk/qirpsdk_artifacts/
+    - docker cp build:${WORK_DIR}/qcom-6.6.119-qli.1.8-ver.1.1_robotics-sdk-1.1_c1_20.04/NOTICE /target/qcs9075-iq-9075-evk/
+    - docker cp build:${WORK_DIR}/qcom-6.6.119-qli.1.8-ver.1.1_robotics-sdk-1.1_c1_20.04/NO.LOGIN.BINARY.LICENSE.QTI.pdf /target/qcs9075-iq-9075-evk/
+    # - zip -r arm-qcom-6.6.119-qli.1.8-ver.1.1_robotics-sdk-1.1.zip /target/qcs9075-iq-9075-evk
+    - zip -r arm-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-image-1.1.zip /target/qcs9075-iq-9075-evk/qcom-robotics-full-image /target/qcs9075-iq-9075-evk/NOTICE /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r arm-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-artifacts-1.1.zip /target/qcs9075-iq-9075-evk/qirpsdk_artifacts /target/qcs9075-iq-9075-evk/NOTICE /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r arm-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-esdk-1.1.zip /target/qcs9075-iq-9075-evk /target/qcs9075-iq-9075-evk/sdk -i /target/qcs9075-iq-9075-evk/sdk/*-toolchain-ext-*.sh -i /target/qcs9075-iq-9075-evk/NOTICE -i /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r arm-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-standardsdk-1.1.zip /target/qcs9075-iq-9075-evk /target/qcs9075-iq-9075-evk/sdk -i /target/qcs9075-iq-9075-evk/sdk/*-toolchain-*.sh -x /target/qcs9075-iq-9075-evk/sdk/*-toolchain-ext-*.sh -i /target/qcs9075-iq-9075-evk/NOTICE -i /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
     - docker rm build
     - /usr/local/bin/jf rt ping
-    - /usr/local/bin/jf rt u --detailed-summary --flat=false --recursive "x86-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk*-1.1.zip" qli-ci/flashable-binaries/qirpsdk/qcs6490-rb3gen2-vision-kit/
+    - /usr/local/bin/jf rt u --detailed-summary --flat=false --recursive "arm-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk*-1.1.zip" qli-ci/flashable-binaries/qirpsdk/qcs9075-iq-9075-evk/

@@ -38,7 +38,7 @@ build:
     - BRANCH="qcom-linux-scarthgap"
     - MANIFEST_FILE="${QCOM_RELEASE}.xml"
     - MACHINE="qcs8275-iq-8275-evk-pro-sku"
-    - ARCH="arm"
+    - ARCH="x86"
     - DISTRO="qcom-wayland"
     - IMAGE="qcom-multimedia-image"
     - USER=lnxbuild
@@ -48,20 +48,20 @@ build:
 
     # Docker Build & Run
     - docker build --build-arg USER=${USER} --build-arg UID=${UID} --build-arg GID=${GID} --no-cache -t ${DOCKER_TAG} .
-    - wget https://artifacts.codelinaro.org/artifactory/qli-ci/flashable-binaries/qimpsdk/qcs8275-iq-8275-evk-pro-sku/arm-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-image-2.3.1.zip
-    - unzip arm-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-image-2.3.1.zip
-    - rm -rf arm-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-image-2.3.1.zip
-    - wget https://artifacts.codelinaro.org/artifactory/qli-ci/flashable-binaries/qimpsdk/qcs8275-iq-8275-evk-pro-sku/arm-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-artifacts-2.3.1.zip
-    - unzip -o arm-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-artifacts-2.3.1.zip
-    - rm -rf arm-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-artifacts-2.3.1.zip
-    - wget https://artifacts.codelinaro.org/artifactory/qli-ci/flashable-binaries/qimpsdk/qcs8275-iq-8275-evk-pro-sku/arm-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-esdk-2.3.1.zip
-    - unzip -o arm-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-esdk-2.3.1.zip
-    - rm -rf arm-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-esdk-2.3.1.zip
-    - wget https://artifacts.codelinaro.org/artifactory/qli-ci/flashable-binaries/qimpsdk/qcs8275-iq-8275-evk-pro-sku/arm-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-standardsdk-2.3.1.zip
-    - unzip -o arm-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-standardsdk-2.3.1.zip
-    - rm -rf arm-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-standardsdk-2.3.1.zip
+    - wget https://artifacts.codelinaro.org/artifactory/qli-ci/flashable-binaries/qimpsdk/qcs8275-iq-8275-evk-pro-sku/x86-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-image-2.3.1.zip
+    - unzip x86-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-image-2.3.1.zip
+    - rm -rf x86-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-image-2.3.1.zip
+    - wget https://artifacts.codelinaro.org/artifactory/qli-ci/flashable-binaries/qimpsdk/qcs8275-iq-8275-evk-pro-sku/x86-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-artifacts-2.3.1.zip
+    - unzip -o x86-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-artifacts-2.3.1.zip
+    - rm -rf x86-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-artifacts-2.3.1.zip
+    - wget https://artifacts.codelinaro.org/artifactory/qli-ci/flashable-binaries/qimpsdk/qcs8275-iq-8275-evk-pro-sku/x86-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-esdk-2.3.1.zip
+    - unzip -o x86-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-esdk-2.3.1.zip
+    - rm -rf x86-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-esdk-2.3.1.zip
+    - wget https://artifacts.codelinaro.org/artifactory/qli-ci/flashable-binaries/qimpsdk/qcs8275-iq-8275-evk-pro-sku/x86-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-standardsdk-2.3.1.zip
+    - unzip -o x86-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-standardsdk-2.3.1.zip
+    - rm -rf x86-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-standardsdk-2.3.1.zip
     - tree target
     #- docker rm build
-    - zip -r arm-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-2.3.1.zip target/qcs8275-iq-8275-evk-pro-sku
+    - zip -r x86-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-2.3.1.zip target/qcs8275-iq-8275-evk-pro-sku
     - /usr/local/bin/jf rt ping
-    - /usr/local/bin/jf rt u --detailed-summary --flat=false --recursive arm-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-2.3.1.zip qli-ci/flashable-binaries/qimpsdk/qcs8275-iq-8275-evk-pro-sku/
+    - /usr/local/bin/jf rt u --detailed-summary --flat=false --recursive x86-qcom-6.6.119-QLI.1.8-Ver.1.1_qim-product-sdk-2.3.1.zip qli-ci/flashable-binaries/qimpsdk/qcs8275-iq-8275-evk-pro-sku/

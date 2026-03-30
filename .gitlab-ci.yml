@@ -4,7 +4,7 @@ default:
     - dockerd -l fatal &
     - sleep 5
   tags:
-    - arm64-runner
+    - amd64-runner
 
 variables:
   KUBERNETES_CPU_REQUEST: 60
@@ -32,12 +32,12 @@ build:
 
   script:
     # Variables
-    - QCOM_RELEASE=qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-1.1
-    - DOCKER_TAG="qcom-6.6.119-qli.1.8-ver.1.1_robotics-sdk-ci-1.1_20.04"
+    - QCOM_RELEASE=qcom-6.6.119-QLI.1.8-Ver.1.1
+    - DOCKER_TAG="qcom-6.6.119-qli.1.8-ver.1.1_20.04"
     - URL="https://github.com/qualcomm-linux/qcom-manifest"
     - BRANCH="qcom-linux-scarthgap"
     - MANIFEST_FILE="${QCOM_RELEASE}.xml"
-    - MACHINE="qcs8275-iq-8275-evk-pro-sku"
+    - MACHINE="qcs6490-rb3gen2-vision-kit"
     - ARCH="x86"
     - DISTRO="qcom-wayland"
     - IMAGE="qcom-multimedia-image"
@@ -48,20 +48,9 @@ build:
 
     # Docker Build & Run
     - docker build --build-arg USER=${USER} --build-arg UID=${UID} --build-arg GID=${GID} --no-cache -t ${DOCKER_TAG} .
-    - wget https://artifacts.codelinaro.org/artifactory/qli-ci/flashable-binaries/qirpsdk/qcs8275-iq-8275-evk-pro-sku/x86-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-image-1.1.zip
-    - unzip x86-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-image-1.1.zip
-    - rm -rf x86-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-image-1.1.zip
-    - wget https://artifacts.codelinaro.org/artifactory/qli-ci/flashable-binaries/qirpsdk/qcs8275-iq-8275-evk-pro-sku/x86-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-artifacts-1.1.zip
-    - unzip -o x86-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-artifacts-1.1.zip
-    - rm -rf x86-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-artifacts-1.1.zip
-    - wget https://artifacts.codelinaro.org/artifactory/qli-ci/flashable-binaries/qirpsdk/qcs8275-iq-8275-evk-pro-sku/x86-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-esdk-1.1.zip
-    - unzip -o x86-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-esdk-1.1.zip
-    - rm -rf x86-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-esdk-1.1.zip
-    - wget https://artifacts.codelinaro.org/artifactory/qli-ci/flashable-binaries/qirpsdk/qcs8275-iq-8275-evk-pro-sku/x86-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-standardsdk-1.1.zip
-    - unzip -o x86-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-standardsdk-1.1.zip
-    - rm -rf x86-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-standardsdk-1.1.zip
-    - tree target
-    #- docker rm build
-    - zip -r x86-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-1.1.zip target/qcs8275-iq-8275-evk-pro-sku
+    - docker run --name build ${DOCKER_TAG} -u ${URL} -b ${BRANCH} -m ${MANIFEST_FILE} -M ${MACHINE} -d ${DISTRO} -i ${IMAGE} -w "${WORK_DIR}/${DOCKER_TAG}" -a ${ARCH}
+    - mkdir -p /downloads
+    - docker cp build:${WORK_DIR}/qcom-6.6.119-qli.1.8-ver.1.1_20.04/downloads/. /downloads
     - /usr/local/bin/jf rt ping
-    - /usr/local/bin/jf rt u --detailed-summary --flat=false --recursive x86-qcom-6.6.119-QLI.1.8-Ver.1.1_robotics-sdk-1.1.zip qli-ci/flashable-binaries/qirpsdk/qcs8275-iq-8275-evk-pro-sku/
+    - /usr/local/bin/jf rt u --detailed-summary --flat=false --include-dirs --recursive "/downloads/(**)" "qli-ci/downloads/1.x/{1}"
+    - docker rm build

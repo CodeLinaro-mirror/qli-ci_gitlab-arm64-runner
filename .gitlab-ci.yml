@@ -9,7 +9,7 @@ default:
 variables:
   KUBERNETES_CPU_REQUEST: 60
   KUBERNETES_MEMORY_REQUEST: 256G
-  KUBERNETES_EPHEMERAL_STORAGE_REQUEST: 2T
+  KUBERNETES_EPHEMERAL_STORAGE_REQUEST: 1T
 
 build:
   stage: build
@@ -58,10 +58,10 @@ build:
     - docker cp build:${WORK_DIR}/qcom-6.6.136-qli.1.9-ver.1.1_qim-product-sdk-2.4.1_20.04/NOTICE /target/qcs6490-rb3gen2-vision-kit/
     - docker cp build:${WORK_DIR}/qcom-6.6.136-qli.1.9-ver.1.1_qim-product-sdk-2.4.1_20.04/NO.LOGIN.BINARY.LICENSE.QTI.pdf /target/qcs6490-rb3gen2-vision-kit/
     # - zip -r x86-qcom-6.6.136-QLI.1.9-Ver.1.1_qim-product-sdk-2.4.1.zip /target/qcs6490-rb3gen2-vision-kit
-	- zip -r x86-qcom-6.6.136-QLI.1.9-Ver.1.1_qim-product-sdk-image-2.4.1.zip /target/qcs6490-rb3gen2-vision-kit/qcom-multimedia-image /target/qcs6490-rb3gen2-vision-kit/NOTICE /target/qcs6490-rb3gen2-vision-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
-	- zip -r x86-qcom-6.6.136-QLI.1.9-Ver.1.1_qim-product-sdk-artifacts-2.4.1.zip /target/qcs6490-rb3gen2-vision-kit/qim_prod_sdk_artifacts /target/qcs6490-rb3gen2-vision-kit/NOTICE /target/qcs6490-rb3gen2-vision-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
-	- zip -r x86-qcom-6.6.136-QLI.1.9-Ver.1.1_qim-product-sdk-esdk-2.4.1.zip /target/qcs6490-rb3gen2-vision-kit /target/qcs6490-rb3gen2-vision-kit/sdk -i /target/qcs6490-rb3gen2-vision-kit/sdk/*-toolchain-ext-*.sh -i /target/qcs6490-rb3gen2-vision-kit/NOTICE -i /target/qcs6490-rb3gen2-vision-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r x86-qcom-6.6.136-QLI.1.9-Ver.1.1_qim-product-sdk-image-2.4.1.zip /target/qcs6490-rb3gen2-vision-kit/qcom-multimedia-image /target/qcs6490-rb3gen2-vision-kit/NOTICE /target/qcs6490-rb3gen2-vision-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r x86-qcom-6.6.136-QLI.1.9-Ver.1.1_qim-product-sdk-artifacts-2.4.1.zip /target/qcs6490-rb3gen2-vision-kit/qim_prod_sdk_artifacts /target/qcs6490-rb3gen2-vision-kit/NOTICE /target/qcs6490-rb3gen2-vision-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r x86-qcom-6.6.136-QLI.1.9-Ver.1.1_qim-product-sdk-esdk-2.4.1.zip /target/qcs6490-rb3gen2-vision-kit /target/qcs6490-rb3gen2-vision-kit/sdk -i /target/qcs6490-rb3gen2-vision-kit/sdk/*-toolchain-ext-*.sh -i /target/qcs6490-rb3gen2-vision-kit/NOTICE -i /target/qcs6490-rb3gen2-vision-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
     - zip -r x86-qcom-6.6.136-QLI.1.9-Ver.1.1_qim-product-sdk-standardsdk-2.4.1.zip /target/qcs6490-rb3gen2-vision-kit /target/qcs6490-rb3gen2-vision-kit/sdk -i /target/qcs6490-rb3gen2-vision-kit/sdk/*-toolchain-*.sh -x /target/qcs6490-rb3gen2-vision-kit/sdk/*-toolchain-ext-*.sh -i /target/qcs6490-rb3gen2-vision-kit/NOTICE -i /target/qcs6490-rb3gen2-vision-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
-	- docker rm build
+    - docker rm build
     - /usr/local/bin/jf rt ping
     - /usr/local/bin/jf rt u --detailed-summary --flat=false --recursive "x86-qcom-6.6.136-QLI.1.9-Ver.1.1_qim-product-sdk*-2.4.1.zip" qli-ci/flashable-binaries/qimpsdk/qcs6490-rb3gen2-vision-kit/

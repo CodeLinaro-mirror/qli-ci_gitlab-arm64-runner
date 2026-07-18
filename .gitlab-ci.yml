@@ -4,7 +4,7 @@ default:
     - dockerd -l fatal &
     - sleep 5
   tags:
-    - arm64-runner
+    - amd64-runner
 
 variables:
   KUBERNETES_CPU_REQUEST: 60
@@ -38,7 +38,7 @@ build:
     - BRANCH="qcom-linux-scarthgap"
     - MANIFEST_FILE="${QCOM_RELEASE}.xml"
     - MACHINE="qcs6490-rb3gen2-core-kit"
-    - ARCH="arm"
+    - ARCH="x86"
     - DISTRO="qcom-wayland"
     - IMAGE="qcom-multimedia-image"
     - USER=lnxbuild
@@ -57,11 +57,11 @@ build:
     - docker cp build:${WORK_DIR}/qcom-6.6.136-qli.1.9-ver.1.1_qim-product-sdk-2.4.1_20.04/build-qcom-wayland/tmp-glibc/deploy/qim_prod_sdk_artifacts/. /target/qcs6490-rb3gen2-core-kit/qim_prod_sdk_artifacts/
     - docker cp build:${WORK_DIR}/qcom-6.6.136-qli.1.9-ver.1.1_qim-product-sdk-2.4.1_20.04/NOTICE /target/qcs6490-rb3gen2-core-kit/
     - docker cp build:${WORK_DIR}/qcom-6.6.136-qli.1.9-ver.1.1_qim-product-sdk-2.4.1_20.04/NO.LOGIN.BINARY.LICENSE.QTI.pdf /target/qcs6490-rb3gen2-core-kit/
-    # - zip -r arm-qcom-6.6.136-QLI.1.9-Ver.1.1_qim-product-sdk-2.4.1.zip /target/qcs6490-rb3gen2-core-kit
-    - zip -r arm-qcom-6.6.136-QLI.1.9-Ver.1.1_qim-product-sdk-image-2.4.1.zip /target/qcs6490-rb3gen2-core-kit/qcom-multimedia-image /target/qcs6490-rb3gen2-core-kit/NOTICE /target/qcs6490-rb3gen2-core-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
-    - zip -r arm-qcom-6.6.136-QLI.1.9-Ver.1.1_qim-product-sdk-artifacts-2.4.1.zip /target/qcs6490-rb3gen2-core-kit/qim_prod_sdk_artifacts /target/qcs6490-rb3gen2-core-kit/NOTICE /target/qcs6490-rb3gen2-core-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
-    - zip -r arm-qcom-6.6.136-QLI.1.9-Ver.1.1_qim-product-sdk-esdk-2.4.1.zip /target/qcs6490-rb3gen2-core-kit /target/qcs6490-rb3gen2-core-kit/sdk -i /target/qcs6490-rb3gen2-core-kit/sdk/*-toolchain-ext-*.sh -i /target/qcs6490-rb3gen2-core-kit/NOTICE -i /target/qcs6490-rb3gen2-core-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
-    - zip -r arm-qcom-6.6.136-QLI.1.9-Ver.1.1_qim-product-sdk-standardsdk-2.4.1.zip /target/qcs6490-rb3gen2-core-kit /target/qcs6490-rb3gen2-core-kit/sdk -i /target/qcs6490-rb3gen2-core-kit/sdk/*-toolchain-*.sh -x /target/qcs6490-rb3gen2-core-kit/sdk/*-toolchain-ext-*.sh -i /target/qcs6490-rb3gen2-core-kit/NOTICE -i /target/qcs6490-rb3gen2-core-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    # - zip -r x86-qcom-6.6.136-QLI.1.9-Ver.1.1_qim-product-sdk-2.4.1.zip /target/qcs6490-rb3gen2-core-kit
+    - zip -r x86-qcom-6.6.136-QLI.1.9-Ver.1.1_qim-product-sdk-image-2.4.1.zip /target/qcs6490-rb3gen2-core-kit/qcom-multimedia-image /target/qcs6490-rb3gen2-core-kit/NOTICE /target/qcs6490-rb3gen2-core-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r x86-qcom-6.6.136-QLI.1.9-Ver.1.1_qim-product-sdk-artifacts-2.4.1.zip /target/qcs6490-rb3gen2-core-kit/qim_prod_sdk_artifacts /target/qcs6490-rb3gen2-core-kit/NOTICE /target/qcs6490-rb3gen2-core-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r x86-qcom-6.6.136-QLI.1.9-Ver.1.1_qim-product-sdk-esdk-2.4.1.zip /target/qcs6490-rb3gen2-core-kit /target/qcs6490-rb3gen2-core-kit/sdk -i /target/qcs6490-rb3gen2-core-kit/sdk/*-toolchain-ext-*.sh -i /target/qcs6490-rb3gen2-core-kit/NOTICE -i /target/qcs6490-rb3gen2-core-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r x86-qcom-6.6.136-QLI.1.9-Ver.1.1_qim-product-sdk-standardsdk-2.4.1.zip /target/qcs6490-rb3gen2-core-kit /target/qcs6490-rb3gen2-core-kit/sdk -i /target/qcs6490-rb3gen2-core-kit/sdk/*-toolchain-*.sh -x /target/qcs6490-rb3gen2-core-kit/sdk/*-toolchain-ext-*.sh -i /target/qcs6490-rb3gen2-core-kit/NOTICE -i /target/qcs6490-rb3gen2-core-kit/NO.LOGIN.BINARY.LICENSE.QTI.pdf
     - docker rm build
     - /usr/local/bin/jf rt ping
-    - /usr/local/bin/jf rt u --detailed-summary --flat=false --recursive "arm-qcom-6.6.136-QLI.1.9-Ver.1.1_qim-product-sdk*-2.4.1.zip" qli-ci/flashable-binaries/qimpsdk/qcs6490-rb3gen2-core-kit/
+    - /usr/local/bin/jf rt u --detailed-summary --flat=false --recursive "x86-qcom-6.6.136-QLI.1.9-Ver.1.1_qim-product-sdk*-2.4.1.zip" qli-ci/flashable-binaries/qimpsdk/qcs6490-rb3gen2-core-kit/

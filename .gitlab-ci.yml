@@ -4,7 +4,7 @@ default:
     - dockerd -l fatal &
     - sleep 5
   tags:
-    - arm64-runner
+    - amd64-runner
 
 variables:
   KUBERNETES_CPU_REQUEST: 60
@@ -38,7 +38,7 @@ build:
     - BRANCH="qcom-linux-scarthgap"
     - MANIFEST_FILE="${QCOM_RELEASE}.xml"
     - MACHINE="qcs9075-iq-9075-evk"
-    - ARCH="arm"
+    - ARCH="x86"
     - DISTRO="qcom-robotics-ros2-jazzy"
     - IMAGE="qcom-robotics-full-image"
     - USER=lnxbuild
@@ -57,11 +57,11 @@ build:
     - docker cp build:${WORK_DIR}/qcom-6.6.136-qli.1.9-ver.1.1_robotics-sdk-1.1_c1_20.04/build-qcom-robotics-ros2-jazzy/tmp-glibc/deploy/qirpsdk_artifacts/. /target/qcs9075-iq-9075-evk/qirpsdk_artifacts/
     - docker cp build:${WORK_DIR}/qcom-6.6.136-qli.1.9-ver.1.1_robotics-sdk-1.1_c1_20.04/NOTICE /target/qcs9075-iq-9075-evk/
     - docker cp build:${WORK_DIR}/qcom-6.6.136-qli.1.9-ver.1.1_robotics-sdk-1.1_c1_20.04/NO.LOGIN.BINARY.LICENSE.QTI.pdf /target/qcs9075-iq-9075-evk/
-    # - zip -r arm-qcom-6.6.136-qli.1.9-ver.1.1_robotics-sdk-1.1.zip /target/qcs9075-iq-9075-evk
-    - zip -r arm-qcom-6.6.136-QLI.1.9-Ver.1.1_robotics-sdk-image-1.1.zip /target/qcs9075-iq-9075-evk/qcom-robotics-full-image /target/qcs9075-iq-9075-evk/NOTICE /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
-    - zip -r arm-qcom-6.6.136-QLI.1.9-Ver.1.1_robotics-sdk-artifacts-1.1.zip /target/qcs9075-iq-9075-evk/qirpsdk_artifacts /target/qcs9075-iq-9075-evk/NOTICE /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
-    - zip -r arm-qcom-6.6.136-QLI.1.9-Ver.1.1_robotics-sdk-esdk-1.1.zip /target/qcs9075-iq-9075-evk /target/qcs9075-iq-9075-evk/sdk -i /target/qcs9075-iq-9075-evk/sdk/*-toolchain-ext-*.sh -i /target/qcs9075-iq-9075-evk/NOTICE -i /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
-    - zip -r arm-qcom-6.6.136-QLI.1.9-Ver.1.1_robotics-sdk-standardsdk-1.1.zip /target/qcs9075-iq-9075-evk /target/qcs9075-iq-9075-evk/sdk -i /target/qcs9075-iq-9075-evk/sdk/*-toolchain-*.sh -x /target/qcs9075-iq-9075-evk/sdk/*-toolchain-ext-*.sh -i /target/qcs9075-iq-9075-evk/NOTICE -i /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    # - zip -r x86-qcom-6.6.136-qli.1.9-ver.1.1_robotics-sdk-1.1.zip /target/qcs9075-iq-9075-evk
+    - zip -r x86-qcom-6.6.136-QLI.1.9-Ver.1.1_robotics-sdk-image-1.1.zip /target/qcs9075-iq-9075-evk/qcom-robotics-full-image /target/qcs9075-iq-9075-evk/NOTICE /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r x86-qcom-6.6.136-QLI.1.9-Ver.1.1_robotics-sdk-artifacts-1.1.zip /target/qcs9075-iq-9075-evk/qirpsdk_artifacts /target/qcs9075-iq-9075-evk/NOTICE /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r x86-qcom-6.6.136-QLI.1.9-Ver.1.1_robotics-sdk-esdk-1.1.zip /target/qcs9075-iq-9075-evk /target/qcs9075-iq-9075-evk/sdk -i /target/qcs9075-iq-9075-evk/sdk/*-toolchain-ext-*.sh -i /target/qcs9075-iq-9075-evk/NOTICE -i /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
+    - zip -r x86-qcom-6.6.136-QLI.1.9-Ver.1.1_robotics-sdk-standardsdk-1.1.zip /target/qcs9075-iq-9075-evk /target/qcs9075-iq-9075-evk/sdk -i /target/qcs9075-iq-9075-evk/sdk/*-toolchain-*.sh -x /target/qcs9075-iq-9075-evk/sdk/*-toolchain-ext-*.sh -i /target/qcs9075-iq-9075-evk/NOTICE -i /target/qcs9075-iq-9075-evk/NO.LOGIN.BINARY.LICENSE.QTI.pdf
     - docker rm build
     - /usr/local/bin/jf rt ping
-    - /usr/local/bin/jf rt u --detailed-summary --flat=false --recursive "arm-qcom-6.6.136-QLI.1.9-Ver.1.1_robotics-sdk*-1.1.zip" qli-ci/flashable-binaries/qirpsdk/qcs9075-iq-9075-evk/
+    - /usr/local/bin/jf rt u --detailed-summary --flat=false --recursive "x86-qcom-6.6.136-QLI.1.9-Ver.1.1_robotics-sdk*-1.1.zip" qli-ci/flashable-binaries/qirpsdk/qcs9075-iq-9075-evk/
